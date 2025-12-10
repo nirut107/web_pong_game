@@ -1,0 +1,288 @@
+<style>
+  .chat-container {
+    display: flex;
+    width:1200px;
+    height: 1000px;
+    max-width: 1500px;
+    max-height: 1000px;
+    height: 100%;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* opacity: 0.9; */
+  }
+
+  .friends-list {
+    width: 30%;
+    height: 100%;
+    border-right: 1px solid #e6e6e6;
+    overflow-y: auto;
+  }
+
+  .friends-header {
+    padding: 20px;
+    /* background-color: #5b42f3; */
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .search-bar {
+    padding: 10px;
+    background-color: #f5f5f5;
+  }
+
+  .search-bar input {
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .friend-item {
+    display: flex;
+    width: 350px;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background-color 0.2s;
+  }
+
+  .friend-item:hover {
+    background-color: #f9f9f9;
+  }
+
+  .friend-item.active {
+    background-color: #0084d1;
+  }
+
+  .avatarp {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #555;
+  }
+
+  .friend-info {
+    flex: 1;
+  }
+
+  .friend-names {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000;
+  }
+
+  .last-message {
+    font-size: 13px;
+    color: #000000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .message-time {
+    font-size: 12px;
+    color: #000000;
+  }
+
+  .chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* .chat-header {
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .chat-header .avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+  } */
+
+  .messages-container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    width: 76%;
+    /* min-height: 800px; */
+    max-height: 900px;
+  }
+
+  .messagep {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .messagep.received {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .messagep.sent {
+    align-items: flex-end;
+    align-self: flex-end;
+    width: 100%;
+  }
+
+  .message-content {
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    word-break: break-word;
+    color: #000;
+    font-family: "Roboto", sans-serif;
+  }
+  .message-content span {
+    font-family: "Roboto", sans-serif;
+  }
+
+  .received .message-content {
+    background-color: white;
+  }
+
+  .sent .message-content {
+    background-color: #00a6f4;
+    color: white;
+  }
+
+  .message-time-stamp {
+    font-size: 11px;
+    color: #3f3f3f;
+  }
+
+  .message-input {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+    border-top: 1px solid #e6e6e6;
+    width: 76%;
+    color: #000;
+  }
+
+  .message-input input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .send-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* background-color: #5b42f3; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  .send-button svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+  }
+
+  .closeprivate {
+    font-weight: 800;
+    font-size: large;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    transition: transform 0.2s linear;
+    cursor: pointer;
+  }
+  .closeprivate:hover {
+    transform: scale(1.2);
+  }
+
+  .message-btn {
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    border: solid #000;
+    transition: transform 0.2s linear;
+    color: blue;
+    cursor: pointer;
+    background-color: #00d5be;
+  }
+  .message-btn:hover {
+    transform: scale(1.1);
+  }
+</style>
+<body>
+  <div class="chat-container">
+    <!-- <div class="friends-list">
+      <div class="friends-header">
+        <span class="tsl" data-tsl="friend">Friends</span>
+      </div> -->
+      <div id="friends-container" style="height: 100%;"></div>
+      <div class="chat-area">
+        <div
+          id="chat-content"
+          style="
+            display: none;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+          "
+        >
+          <div class="chat-header bg-sky-500 p-3 text-white text-bold flex items-center" id="">
+            <div class="avatarp" id="chat-avatar">
+            </div>
+            <div id="chat-friend-name"></div>
+          </div>
+          <div class="messages-container" id="messages-container">
+            <!-- Messages will be inserted here dynamically -->
+          </div>
+          <div class="message-input" id="message-box">
+            <input
+            class="tsl"
+            data-tsl="typemsg"
+              type="text"
+              placeholder="Type a message..."
+              id="message-input"
+            />
+            <div class="send-button bg-sky-500" id="send-button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  d="M476.59 227.05l-.16-.07L49.35 49.84A23.56 23.56 0 0027.14 52 24.65 24.65 0 0016 72.59v113.29a24 24 0 0019.52 23.57l232.93 43.07a4 4 0 010 7.86L35.53 303.45A24 24 0 0016 327v113.31A23.57 23.57 0 0026.59 460a23.94 23.94 0 0013.22 4 24.55 24.55 0 009.52-1.93L476.4 285.94l.19-.09a32 32 0 000-58.8z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Area Section -->
+    
+  </div>
+</body>

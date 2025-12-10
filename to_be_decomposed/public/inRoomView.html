@@ -1,0 +1,91 @@
+<style>
+  body {
+    background-image: url("/image/arena.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+  .inRoomView {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: auto;
+    font-size: 40px;
+    /*background-image: url("/image/arena.jpg"); /* Set the background image */
+    background-size: cover; /* Ensures the image covers the entire div */
+    background-position: center center; /* Centers the image */
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
+  .li {
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px;
+    padding: 10px;
+    background-color: aquamarine;
+    opacity: 1;
+    border-radius: 20px;
+  }
+  .buttonimg {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .buttonimg img {
+    width: 300px;
+    margin: 50px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .roomList1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    width: 1000px;
+    height: 500px;
+    background: whitesmoke;
+    border: #000;
+    border-radius: 20px;
+    opacity: 0.8;
+    border-radius: 20px;
+  }
+  .roomList1 li {
+    display: flex;
+    margin-top: 10px;
+    background-color: aquamarine;
+    opacity: 1;
+  }
+  .roomList img {
+    opacity: 1;
+    width: 100px;
+    margin: 20px;
+    height: auto;
+    z-index: 5;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  .roomList img:hover {
+    transform: scale(1.1); /* Moves down + scales up */
+  }
+</style>
+
+<div id="inRoomView" class="inRoomView">
+  <h2>
+    <span class="tsl" data-tsl="roomof"></span><span id="roomIdDisplay"></span>
+  </h2>
+  <div class="roomList1">
+    <ul id="playerList"></ul>
+  </div>
+  <div class="buttonimg" id="startbtn">
+    <img src="/image/leave.png" alt="Clickable Image" id="leaveRoomBtn" />
+  </div>
+</div>
+<div id="invitfriend" class="bg-sky-950"></div>

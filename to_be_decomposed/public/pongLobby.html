@@ -1,0 +1,254 @@
+
+<style>
+    body {
+      background-image: url("/image/pong-bg.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+    }
+    #pongRoomView {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: start;
+      min-height: 100vh;
+      height: 100%;
+      width: 100%;
+      font-size: 40px;
+      padding-top:2em;
+    }
+    .pongRoomView img {
+      width: 300px;
+      margin: 50px;
+      height: auto;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+    }
+  
+    .pongRoomView img:hover {
+      transform: scale(1.1);
+    }
+  
+    .buttonimg img:hover {
+      transform: scale(1.1); 
+    }
+    .unrated {
+      color:#fdcb6e;
+    }
+    .pong-room-mode {
+      font-weight:bolder;
+    }
+    .roomList {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 1000px;
+      height: 1000px;
+      border: #000;
+      border-radius: 20px;
+      background-color: rgba(245,245,245, 0.8);
+      border-radius: 20px;
+    }
+    .roomList li {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin: 10px;
+      padding-left: 20px;
+      background-color: aquamarine;
+      opacity: 1;
+    }
+  
+    .roomList1 {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      align-items: end;
+      justify-content: end;
+      align-content: center;
+      width: 1000px;
+      height: 1000px;
+      background: whitesmoke;
+      border: #000;
+      border-radius: 20px;
+      opacity: 0.8;
+      border-radius: 20px;
+    }
+    .roomList1 li {
+      display: flex;
+      margin: 10px;
+      padding: 100px;
+      background-color: aquamarine;
+      opacity: 1;
+    }
+    .roomList img {
+      opacity: 1;
+      width: 100px;
+      margin: 20px;
+      height: auto;
+      z-index: 5;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+    }
+    .roomList img:hover {
+      transform: scale(1.1);
+      border: #000;
+    }
+    .box-button {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    
+    .pong-room-button
+    {
+      background-color: rgb(2, 11, 61); 
+      color:#FFFFFF;
+      border-radius: 2rem;
+      padding:1rem;
+      margin-top:1rem;
+      cursor:pointer;
+    }
+    .pong-room-button:hover
+    {
+      transform: translateY(-3px);      
+    }
+    .unrated-room {
+      background-color:#e4a83a;
+    }
+    #divPongRoomOptions 
+    {
+      display:flex;
+      flex-direction: column;
+      justify-content: space-between;    
+      /* background-color: #1a1a2e; */
+      background: transparent;
+      color: #e6e6e6;
+      align-items: center;
+
+    }
+    #divGroupCreateRoomOption
+    {
+      display:flex;
+      flex-direction: column;
+      justify-content: top;;
+    }
+    #roomList, #divPongRoomOptions
+    {
+      flex:1 ;
+    }
+    #roomList {
+      flex: 2;
+    }
+    #pongLobbyContainer
+    {
+      height:1000px;
+      width:1500px;
+      display:flex;
+      flex-direction:row;
+      
+    }
+    .container-howtoplay {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      /* position: relative; */
+      /* overflow: hidden; */
+      width: 750px;
+      height: 580px;
+      display: flex;
+      flex-direction: column;
+      
+    }
+    .scrollable
+    {
+      overflow-y: scroll;
+    }
+    .final-section
+    {
+      flex:1;
+      margin:auto;
+    }
+    .close-modal-btn
+    {
+      cursor:pointer; 
+      font-family: "Roboto", sans-serif;
+      color:#FFFFFF;
+    }
+    h3.howtoplay 
+    {
+      font-size:1.5em;
+    }
+    li.howtoplay {
+      list-style-type: decimal;
+      margin-top: 1.5em;;
+      font-family: Roboto, sans-serif;
+      color:#FFFFFF;
+    }
+    #modalPongHowToPlay{
+      display:none;
+    }
+    .hidden {
+      display:none !important;
+    }
+    #btnPongHowToPlay
+    {
+      background-color: rgb(54, 80, 232)
+    }
+  </style>
+
+  <div id="pongRoomView" class="roomView">
+    <div id="pongLobbyContainer">
+      <div class="roomList">
+        <div id="ulPongRoomList"></div>
+      </div>
+      <div id="divPongRoomOptions" class="m-5">
+        <div id="divGroupCreateRoomOption">
+          <button type="button" class="pong-room-button tsl" data-tsl="btnCreatePongRoom" id="btnCreateRoom" >Create room</button>
+          <button type="button" class="pong-room-button unrated-room tsl" data-tsl="btnCreateCasualPongRoom" id="btnCreateCasualRoom" >Create casual party room</button>
+          <button type="button" class="pong-room-button unrated-room tsl" data-tsl="btnCreateClassicPongRoom"  id="btnCreateClassicRoom" >Create classic pong room</button>
+          <button type="button" class="pong-room-button unrated-room tsl" data-tsl="btnCreateBAFClassicPongRoom"  id="btnCreateBAFClassicRoom" style="background-color: #9b742c;">Create BAF classic pong room</button>
+
+          <button type="button" class="pong-room-button tsl" data-tsl="btnPongHowToPlay"  id="btnPongHowToPlay" >How to Play</button> 
+        </div>
+        <div>
+          <button type="button" class="pong-room-button tsl" id="btnLeaveRoom" data-tsl="btnBackToGameLibrary">Back to Game Library</button>
+        </div>      
+      </div>
+    </div>
+  </div>
+  
+  
+  <div id="modalPongHowToPlay" class="modal fixed inset-0 hidden items-center justify-center z-[999]" style="background-color: rgba(0, 0, 0, 0.8); ">
+    <div class="modal-content container-howtoplay p-8 space-y-8" style="background-color: #2a2a4a;">
+
+      <div class="scrollable">
+        <p> 
+          <h3 class="howtoplay tsl text-sky-500 text-lg font-semibold mb-2" data-tsl="pongHTPSettingUpTable" >Setting up table:</h3>
+          <ul>
+              <li class="howtoplay tsl" data-tsl="pongHTP_setup1" >• Please choose between the 2 rules, `First to 5` or `First to 10`, the glowing light will tell which rule is active.</li>
+              <li class="howtoplay tsl" data-tsl="pongHTP_setup2" >• Host player will be automatically sit at the player 1's seat, but host can drag and drop the badge icon (including everyone else's icon to each seat).</li>
+              <li class="howtoplay tsl" data-tsl="pongHTP_setup3" >• Guest player may join and sit by clicking join on available seat, and if wants to leave, can drag his/her own badge icon to the drop zone (gray area where the AI badges).</li>
+              <li class="howtoplay tsl" data-tsl="pongHTP_setup4" >• Host may also drag the AI player badge icons to play with AI, and may put the unused players or AI players into the gray area.</li>
+              <li class="howtoplay tsl" data-tsl="pongHTP_setup5" >• Once every seats were assigned, the start game button will be enable to the host , the host must press this button to start the game.</li>
+          </ul>
+        </p>
+      
+        <p>
+          <h3  class="howtoplay tsl text-sky-500 text-lg font-semibold mb-2" data-tsl="pongHTPHowToPlay" >How to play:</h3>
+          <ul>
+            <li class="howtoplay tsl" data-tsl="pongHTP_howto1" >• The goal of the game is to prevent the ball to pass the team's paddle and try to make the ball into opponent's team end zone. Depends on the rule, which team reach the specified point first will win the match.</li>
+            <li class="howtoplay tsl" data-tsl="pongHTP_howto2" >• Player could use "left arrow key" and "right arrow key" to move the paddle of the same color, the paddle with deflect the ball and prevent you from losing. For the classic mode "up arrow key" and "down arrow key" is also enabled.. </li>
+            <li class="howtoplay tsl" data-tsl="pongHTP_howto3" >• Beside the Classic Pong Mode, each player will be given with *ONE* special power, can be used only once a match. To trigger the special, press "space bar" or "Enter Key" to activate it, the effect of each specials are different and will effect the whole opponent's team. The player might not see the effect from the special but rest assure, the effects are there (and effected the AI players as well)</li>
+            <li class="howtoplay tsl" data-tsl="pongHTP_howto4" >• The same Special effect won't stacked, but prolonged. Differenct specials may effect at the same time.</li>
+            <li class="howtoplay tsl" data-tsl="pongHTP_howto5" >• Enjoy the play :)</li>
+            <li class="howtoplay tsl" data-tsl="pongHTP_howto6" >• Update! classic BAF (Brothers Are Fighting) mode will let 2 players play using the same keyboard! (what a terriffic way to play the game!), player 1 will control the paddle1 using `W` and `S` keys,  while the player 2 will use the arraw keys as usual!</li>
+          </ul>
+        </p>
+      </div>
+      <div class="final-section">
+        <button class="px-4 py-2 rounded-lg bg-sky-400 hover:bg-sky-500  cursor tsl close-modal-btn" data-tsl="close">Close</button>
+      </div>
+  
+    </div>
+  </div> 

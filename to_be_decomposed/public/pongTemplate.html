@@ -1,0 +1,308 @@
+<style type="text/css">
+  #pongForfeit, #pongBackLib {
+    border-radius: 10px;
+    position: absolute;
+    padding: 10px;
+    background-color: rgb(231, 102, 102);
+    color: black;
+    left: 17%;
+    top: 1%;
+    font-size: 32px;
+    color: bisque;
+    cursor: pointer;
+    transition: transform 0.2s linear;
+    z-index: 840;
+    display: none;
+  }
+  .white-text
+  {
+    color:#FFF;
+  }
+  #pongBackLib {
+    left:25%;
+    z-index:840;
+  }
+</style>
+
+<!--- match setting section -->
+<div class="pong-modal-overlay match-setting" id="modalGameSettings">
+  <div class="pong-modal">
+    <div style="display: flex; justify-content: space-between">
+      <div id="divRoomId">
+        <!-- #roomID -->
+        <!-- <button class="btn-list-user-room">List user in room </button> -->
+        <div id="divCopyRoomId"><button class="navigate-button" alt="Copy Link to Clipboard" id="btnCopyToClipboard">📋</button></div>
+      </div>
+      <div style="text-align: right">
+        <button
+          class="back-to-lobby navigate-button tsl"
+          data-tsl="btnBackToLobby"
+          id="btnPongLeavRoom"
+        >
+          Back to Lobby
+        </button>
+      </div>
+    </div>
+
+    <div class="section-option section-h2">
+      <span class="section-h2 tsl" data-tsl="gameSectionGameMode">
+        Game Mode:
+        </span>
+        <span id="spanMatchSettingsType" class="guest-only white-text">#spanMatchSettingsType</span>
+    </div>
+    <div class="section-option pong-center host-only" style="justify-content: center;">
+      <label
+        for="radFirstTo5"
+        class="game-mode button-match-type pointer tsl"
+        data-tsl="FirstTo5"
+        data-selected="true"
+        data-game-mode="FirstTo5"
+        style="margin-right: 2rem"
+      >
+        First to 5
+      </label>
+      <input
+        class="hidden"
+        id="radFirstTo5"
+        type="radio"
+        name="gameMode"
+        value="FirstTo5"
+        checked="checked"
+        data-tsl="gameModeFirstTo5"
+      />
+
+      <label
+        for="radFirstTo10"
+        class="game-mode button-match-type pointer tsl"
+        data-game-mode="FirstTo10"
+        data-tsl="FirstTo10"
+      >
+        First to 10
+      </label>
+      <input
+        class="hidden tsl"
+        id="radFirstTo10"
+        type="radio"
+        name="gameMode"
+        value="FirstTo10"
+        data-tsl="gameModeFirstTo10"
+      />
+    </div>
+    <div class="section-option section-h2 tsl" data-tsl="gameSectionSetupTeam">
+      Setup Team:
+    </div>
+
+    <div
+      class="_section-option DEL_section-h2 host-only droppable"
+      id="ulPlayerList"
+    ></div>
+    <section class="player">
+      <div class="teamA the-team team-a">
+        <h1 class="section-h3 tsl" data-tsl="labelTeamA">Team A</h1>
+        <div
+          class="player player-position player0 droppable"
+          data-position-id="0"
+          data-occupied-by=""
+          id="dropZonePlayer0"
+        >
+          <div id="divJoinMatchAtPos0"
+            ><button
+              class="join-match-at-pos guest-only joinable tsl"
+              data-pos="0"
+              id="btnJoinMatchAtPos0"
+              data-tsl="btnJoin"
+            >
+              Join
+            </button></div
+          >
+        </div>
+        <div
+          class="player player-position player2 droppable game-4p-only"
+          data-position-id="2"
+          data-occupied-by=""
+          id="dropZonePlayer2"
+          style="display: none; width: 90%"
+        >
+        <div id="divJoinMatchAtPos2"
+            ><button
+              class="join-match-at-pos guest-only joinable tsl"
+              data-pos="2"
+              id="btnJoinMatchAtPos2"
+              data-tsl="btnJoin"
+            >
+              Join
+            </button>
+         </div>
+        </div>
+      </div>
+      <div
+        class="the-team"
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          padding: 3em;
+        "
+      >
+        <button
+          id="btnStartGame"
+          class="host-only launch-game tsl"
+          data-tsl="btnStartGame"
+        >
+          Start Game
+        </button>
+        <span class="guest-only tsl white-text" data-tsl="labelGuestDescPendingHost"
+          >pending for host to start the game</span
+        >
+      </div>
+      <div class="teamB the-team team-b">
+        <h1 class="section-h3 tsl" data-tsl="labelTeamB">Team B</h1>
+        <div
+          class="player player-position player1 droppable"
+          data-position-id="1"
+          data-occupied-by=""
+          id="dropZonePlayer1"
+        >
+        <div id="divJoinMatchAtPos1"
+            ><button
+              class="join-match-at-pos guest-only joinable tsl"
+              data-pos="1"
+              id="btnJoinMatchAtPos1"
+              data-tsl="btnJoin"
+            >Join</button></div>
+            
+        </div>
+        <div
+          class="player player-position player3 droppable game-4p-only"
+          data-position-id="3"
+          data-occupied-by=""
+          id="dropZonePlayer3"
+          style="display: none; width: 90%"
+        >
+        <div id="divJoinMatchAtPos3"
+            ><button
+              class="join-match-at-pos guest-only joinable tsl"
+              data-pos="3"
+              id="btnJoinMatchAtPos3"
+              data-tsl="btnJoin"
+            >Join</button></div
+          >
+
+        </div>
+      </div>
+    </section>
+
+    <!--  -->
+  </div>
+</div>
+<!--- end match setting section -->
+
+<!--- match is over section -->
+<div class="pong-modal-overlay match-over" id="divMatchIsOver">
+  <div class="pong-modal">
+    <div class="win-container">
+      <div class="trophy">🏆</div>
+      <h3 class="matchOver" class="">
+        <span
+          class="tsl"
+          data-tsl="h3ResignText"
+          id="matchOverExtraResignText"
+        ></span>
+        <span class="tsl" data-tsl="h3TheMatchIsOver">The match is Over</span>
+      </h3>
+      <h1 class="tsl" data-tsl="h1Congratulations">CONGRATULATIONS!</h1>
+      <p id="pWinner">XXX</p>
+      <p>
+        <button
+          id="btnWonBackToLobby"
+          class="navigate-button tsl"
+          data-tsl="btnBackToPongLobby"
+        >
+          Back to Pong Lobby
+        </button>
+      </p>
+    </div>
+  </div>
+</div>
+<!--- end match is over section -->
+
+<div
+  class="pong-modal-overlay match-yet-start"
+  id="divMatchIsYetToStart"
+  style="display: none"
+>
+  <div class="pong-modal match-yet-to-start">
+    <div class="audiowide">
+      <span class="tsl" data-tsl="labelTheMacthWillBeStartedIn"
+        >the match will be started in
+      </span>
+    </div>
+    <div id="divMatchStartsIn">00:00:00</div>
+    <div>
+      <button
+        id="btnPongLeaveRoom"
+        class="back-to-lobby navigate-button tsl"
+        data-tsl="btnBackToPongLobby"
+      >
+        Back to Pong Lobby
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- match game section -->
+<div
+  id="canvasContainer"
+  class="match-game"
+  style="width: 100vw; height: 100vh"
+>
+  <canvas
+    id="mainCanvas"
+    class="match-game"
+    style="width: 100%; height: 100%"
+  ></canvas>
+</div>
+
+<div class="match-game">
+  <div class="left-player-box red-box" style="z-index: 750">
+    <div class="player-name player-name-left" id="labelPlayer1">Player 1</div>
+    <div class="score-div">
+      <div class="special-power" id="specialPlayer1">🗿</div>
+      <div class="score-text score-player-left" id="scorePlayerLeft">0</div>
+    </div>
+  </div>
+
+  <div class="right-player-box blue-box" style="z-index: 750">
+    <div class="player-name player-name-left" id="labelPlayer2">Player 2</div>
+    <div class="score-div-right">
+      <div class="score-text score-player-right" id="scorePlayerRight">0</div>
+      <div class="special-power" id="specialPlayer2">🗿</div>
+    </div>
+  </div>
+
+  <div class="left-player-box yellow-box ponggame-4p-only" style="z-index: 750">
+    <div class="score-div">
+      <div class="special-power" id="specialPlayer3">🗿</div>
+      <div class="score-text score-player-left" id="scorePlayerLeft2">0</div>
+    </div>
+    <div class="player-name player-name-left" id="labelPlayer3">Player 3</div>
+  </div>
+
+  <div class="right-player-box green-box ponggame-4p-only" style="z-index: 750">
+    <div class="score-div-right">
+      <div class="score-text score-player-right" id="scorePlayerRight2">0</div>
+      <div class="special-power" id="specialPlayer4">🗿</div>
+    </div>
+    <div class="player-name player-name-left" id="labelPlayer4">Player 4</div>
+  </div>
+
+  <div id="ruleBoard">
+    <h3 id="lblGameMode">&nbsp;</h3>
+  </div>
+</div>
+<!-- end match game section -->
+
+<div id="pongForfeit" data-tsl="giveup" class="tsl">Give Up</div>
+
+<div id="pongBackLib" data-tsl="back" class="tsl  back-to-library" style="display:none">Back</div>

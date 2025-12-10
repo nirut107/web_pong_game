@@ -1,0 +1,621 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+<style>
+  
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-image: url(/image/mountain.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  h1 {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .container-login p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+  }
+
+  a {
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+  }
+
+  #readPolicy {
+    text-decoration: underline;
+  }
+
+  #readPolicy:hover {
+    text-decoration: none;
+  }
+
+  button:active {
+    transform: scale(0.95);
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  button.ghost {
+    background-color: transparent;
+    border: solid 1px white;
+  }
+
+  form {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+  }
+
+  .input-field {
+    width: 100%;
+    margin: 8px 0;
+  }
+
+  input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+  }
+
+  #policyCheckBox {
+    width: 20%;
+  }
+
+  .container-login {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 1000px;
+    max-width: 100%;
+    min-height: 750px;
+  }
+
+  .container-policy {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 750px;
+    height: 580px;
+  }
+
+  #policyBox {
+    font-family: "Roboto", sans-serif;
+  }
+
+  #policyBox * {
+    font-family: inherit;
+    font-size: 1rem;
+  }
+
+  .form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+  }
+
+  .sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+  }
+
+  .container-login.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+  }
+
+  .sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  .container-login.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+  }
+
+  @keyframes show {
+    0%,
+    49.99% {
+      opacity: 0;
+      z-index: 1;
+    }
+
+    50%,
+    100% {
+      opacity: 1;
+      z-index: 5;
+    }
+  }
+
+  .overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+  }
+
+  .container-login.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+  }
+
+  .overlay {
+    background: #252547;
+    background: linear-gradient(to right, #00a6f4, #00bba7);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #ffffff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .container-login.right-panel-active .overlay {
+    transform: translateX(50%);
+  }
+
+  .overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .overlay-left {
+    transform: translateX(-20%);
+  }
+
+  .container-login.right-panel-active .overlay-left {
+    transform: translateX(0);
+  }
+
+  .overlay-right {
+    right: 0;
+    transform: translateX(0);
+  }
+
+  .container-login.right-panel-active .overlay-right {
+    transform: translateX(20%);
+  }
+
+  .error-message {
+    color: #ff0000;
+    margin: 10px 0;
+    padding: 8px;
+    background-color: rgba(255, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 100%;
+    font-weight: bold;
+    border: 1px solid #ff0000;
+    text-align: center;
+  }
+
+  #totp-container {
+    width: 100%;
+    margin-top: 10px;
+    display: none;
+  }
+
+  .totp-message {
+    color: #333;
+    font-size: 14px;
+    margin: 10px 0;
+  }
+  #signUpSubmit {
+    margin-top: 30px;
+  }
+  #lang-dropdown {
+    z-index: 9;
+  }
+  .langbox {
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 9;
+    color: #eee;
+  }
+</style>
+
+<div class="absolute top-6 right-20">
+  <button
+    class="btnr bg-indigo-500 w-40"
+    data-tsl="changelang"
+    id="changelang-btn1"
+  >
+    <i class="fas fa-globe"></i>
+    <span class="tsl" data-tsl="changelang">Language</span>
+  </button>
+  <div
+    id="lang-dropdown"
+    class="hidden absolute right-0 w-40 bg-sky-950 border rounded shadow-md z-10"
+  >
+    <ul>
+      <li data-lang="en" class="langbox bg-sky-800">English</li>
+      <li data-lang="th" class="langbox bg-sky-800">ไทย</li>
+      <li data-lang="jp" class="langbox bg-sky-800">日本語</li>
+      <!-- <li data-lang="sp" class="langbox bg-sky-800">Español</li> -->
+    </ul>
+  </div>
+</div>
+
+<div
+  class="relative w-full h-screen flex justify-center items-center bg-cover bg-no-repeat"
+>
+  <div
+    class="container-login min-h-[750px] flex justify-center items-center w[900px]"
+    id="container"
+  >
+    <div class="form-container sign-up-container">
+      <form
+        action="#"
+        class="signup-form"
+        id="signup-form"
+        style="position: relative"
+      >
+        <h2 class="title tsl" data-tsl="signup">Sign up</h2>
+        <div
+          id="signup-error"
+          class="error-message"
+          style="display: none; position: absolute; top: 5%; width: auto"
+        ></div>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input
+            class="tsl"
+            data-tsl="username"
+            type="text"
+            name="username"
+            placeholder="Username"
+          />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-envelope"></i>
+          <input
+            class="tsl"
+            data-tsl="email"
+            type="text"
+            name="email"
+            placeholder="Email"
+          />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input
+            class="tsl"
+            data-tsl="password"
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
+          <input
+            class="tsl"
+            data-tsl="repassword"
+            type="password"
+            name="repassword"
+            placeholder="Re-Password"
+          />
+        </div>
+        <label class="flex items-center space-x-2 text-sm w-full">
+          <input
+            id="policyCheckBox"
+            type="checkbox"
+            disabled
+            required
+            class="mt-1 p-0 flex-start"
+          />
+          <span class="text-sm">
+            <span class="tsl" data-tsl="acceptpolicy">I accept the</span>
+            <a
+              id="readPolicy"
+              class="text-blue-600 underline hover:text-blue-800 tsl cursor-pointer"
+              data-tsl="privacy"
+            >
+              Privacy Policy
+            </a>
+          </span>
+        </label>
+        <button
+          type="submit"
+          class="btnr tsl bg-teal-500"
+          data-tsl="signup"
+          value="Sign up"
+          id="signUpSubmit"
+        ></button>
+      </form>
+    </div>
+    <div class="form-container sign-in-container">
+      <form action="#" class="signin-form" id="signin-form">
+        <h2
+          class="title tsl"
+          data-tsl="login"
+          style="margin-bottom: 20px; position: relative"
+        >
+          Login
+        </h2>
+        <div
+          id="login-error"
+          class="error-message"
+          style="display: none; position: absolute; top: 8%; width: auto"
+        ></div>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input
+            class="tsl"
+            data-tsl="username"
+            type="text"
+            name="username"
+            placeholder="Username"
+            value=""
+          />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input
+            class="tsl"
+            data-tsl="password"
+            type="password"
+            name="password"
+            placeholder="Password"
+            value=""
+          />
+        </div>
+        <div id="totp-container"></div>
+        <!-- <a href="#" class="forgot-password tsl" data-tsl="forgotpassword"
+          >Forgot your password?</a
+        > -->
+        <button
+          type="submit"
+          class="btnr solid tsl bg-sky-500"
+          data-tsl="login"
+        ></button>
+        <p class="social-text tsl" data-tsl="signupWith">Or</p>
+        <div class="social-media">
+          <a href="#" class="social-icon">
+            <div
+              class="google-signin-button"
+              id="myGoogleButton"
+              data-onsuccess="onSignIn"
+            >
+              <img
+                src="/image/googlelogo.png"
+                class="w-[200px] mt-2 border border-gray-500 rounded-lg"
+              />
+            </div>
+          </a>
+        </div>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1 class="tsl" data-tsl="Welcome">Welcome Back!</h1>
+          <p class="tsl" data-tsl="pleaseLogin">
+            To keep connected with us please login with your personal info
+          </p>
+          <button
+            class="ghost tsl btnr border border-white"
+            data-tsl="signIn"
+            id="signIn"
+          >
+            Sign In
+          </button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1 class="tsl" data-tsl="helloFriend">Hello, Friend!</h1>
+          <p class="tsl" data-tsl="enterdetial">
+            Enter your personal details and start journey with us
+          </p>
+          <button
+            class="ghost tsl btnr border border-white"
+            data-tsl="signup"
+            id="signUp"
+          >
+            Sign Up
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="absolute bottom-5 w-full text-center p-4 text-white z-100">
+  <p class="text-sm">
+    <span class="tsl" data-tsl="contactUs">Contact us: </span>
+    <a href="mailto:transcendence42@test.com" style="color: #eee;">
+      transcendence42@test.com
+    </a>
+  </p>
+</footer>
+<div
+  id="policyModal"
+  class="modal fixed inset-0 hidden items-center justify-center z-[999]"
+  style="background-color: rgba(0, 0, 0, 0.8)"
+>
+  <div class="modal-content container-policy p-8 space-y-8">
+    <h2 class="text-2xl font-bold mb-6 text-center tsl" data-tsl="privacy">
+      Privacy Policy
+    </h2>
+    <div
+      id="policyBox"
+      class="h-96 overflow-y-scroll border rounded-xl p-6 m-6 text-sm leading-relaxed text-gray-700"
+    >
+      <p class="tsl" data-tsl="po1">
+        Welcome to the ft_transcendence, developed as part of the 42 school
+        curriculum. We are committed to protecting your privacy and handling
+        your data transparently and securely. This Privacy Policy describes how
+        we collect, use, store, and protect your personal information when you
+        use this application.
+      </p>
+
+      <p class="font-semibold mt-2 tsl" data-tsl="information">
+        1. Information We Collect
+      </p>
+      <p>
+      <ul class="list-disc pl-5">
+        <li class="tsl" data-tsl="po2">
+          Account Information: Username, display name, avatar (if provided), and
+          encrypted password.
+        </li>
+        <li class="tsl" data-tsl="po3">
+          Gameplay Data: Match history, scores, win/loss statistics, rankings,
+          achievements, and in-game actions.
+        </li>
+        <li class="tsl" data-tsl="po4">
+          Interaction Data: Chat messages sent within the app, friend lists,
+          block lists, and reports submitted.
+        </li>
+        <li class="tsl" data-tsl="po5">
+          Technical Data: IP address, browser type, device type, operating
+          system, referral URLs, and timestamps.
+        </li>
+      </ul>
+
+      <span class="tsl" data-tsl="wedo">We do</span>
+      <span><strong class="tsl" data-tsl="not">not</strong></span>
+      <span class="tsl" data-tsl="po6">
+        collect sensitive information such as your real name, email address,
+        phone number, or payment information.
+      </span>
+      </p>
+      <p class="font-semibold mt-2 tsl" data-tsl="po7">
+        2. How We Use Your Information
+      </p>
+      <p class="tsl" data-tsl="po8">
+        We use the collected data to operate and improve the app, enable
+        gameplay features, moderate interactions, enforce rules, troubleshoot
+        issues, and manage user accounts. We do not sell or share your data for
+        advertising or marketing purposes.
+      </p>
+
+      <p class="font-semibold mt-2 tsl" data-tsl="po9">
+        3. Cookies and Local Storage
+      </p>
+      <p class="tsl" data-tsl="po10">
+        We use cookies or localStorage to remember your login session, store
+        interface preferences, and maintain your authentication status. You may
+        clear these from your browser settings, but doing so may log you out or
+        reset preferences.
+      </p>
+
+      <p class="font-semibold mt-2 tsl" data-tsl="po11">4. Data Sharing</p>
+      <p class="tsl" data-tsl="po12">
+        We do not share your personal data with third parties except in the
+        following cases: (a) compliance with legal obligations, (b) protection
+        of the app’s security and integrity, (c) investigation of violations of
+        our terms.
+      </p>
+
+      <p class="font-semibold mt-2 tsl" data-tsl="po13">5. Data Retention</p>
+      <p class="tsl" data-tsl="po14">
+        Your data is retained for as long as your account remains active. If
+        your account is inactive for an extended period, we may delete or
+        anonymize your data. You may request deletion of your data at any time
+        by contacting the project team.
+      </p>
+
+      <p class="font-semibold mt-2 tsl" data-tsl="po15">6. Security</p>
+      <p class="tsl" data-tsl="po155">
+        We use technical and organizational measures to protect your data, such
+        as encrypted password storage, secure connections (HTTPS), and access
+        controls. However, no system is completely secure; please protect your
+        credentials.
+      </p>
+
+      <p class="font-semibold mt-2 tsl" data-tsl="po16">7. Your Rights</p>
+      <p class="tsl" data-tsl="po17">
+        You have the right to access, correct, or delete your personal data
+        under applicable data protection laws (such as GDPR). To exercise these
+        rights, contact us at [team_email@example.com]. We may require
+        verification of your identity before fulfilling your request.
+      </p>
+
+      <p class="font-semibold mt-2 tsl" data-tsl="po18">
+        8. Children's Privacy
+      </p>
+      <p class="tsl" data-tsl="po188">
+        This app is not intended for users under 13 years old. We do not
+        knowingly collect personal data from children. If we learn that we have
+        collected such data, we will delete it promptly.
+      </p>
+
+      <p class="font-semibold mt-2 tsl" data-tsl="po19">9. Changes</p>
+      <p class="tsl" data-tsl="po199">
+        We may update this policy from time to time. If we make significant
+        changes, we will notify users by posting an announcement in the app.
+        Please review this policy periodically for updates.
+      </p>
+
+      <p class="mt-4 tsl" data-tsl="po20">
+        By using this app, you acknowledge and agree to this policy.
+      </p>
+    </div>
+    <div class="flex justify-end space-x-4">
+      <button
+        id="cancelPolicyBtn"
+        class="px-4 py-2 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-800 tsl"
+        data-tsl="cancel"
+      >
+        Cancel
+      </button>
+      <button
+        id="acceptPolicyBtn"
+        disabled
+        class="px-4 py-2 rounded-lg bg-sky-400 hover:bg-sky-500 text-sky-950 opacity-50 cursor-not-allowed tsl"
+        data-tsl="accept"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+</div>

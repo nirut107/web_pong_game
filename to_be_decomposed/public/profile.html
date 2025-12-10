@@ -1,0 +1,157 @@
+<style>
+  body {
+    background-color: #1a1a2e;
+    color: #e6e6e6;
+    overflow: hidden;
+    background-image: url("/image/mountain.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<div class="container-profile flex w-full h-full max-w-[1800px] justify-between my-0 mx-auto p-5">
+  <section class="friend-section flex flex-col mr-[30px] mt-[40px] p-[15px]">
+    <div id="friend-content"></div>
+  </section>
+  <section class="profile-section flex flex-col max-w-[700px] w-[80%] mx-[50px] gap-7 p-7 opacity-80">
+    <div
+      class="profile-image-container flex justify-between position-relative max-w-[2000px] min-w-[500px] w-full h-[200px] gap-5"
+    >
+      <img
+        src=""
+        alt="Profile Image"
+        class="profile-image min-w-[150px] size-52 object-cover rounded-xl border-sky-500 border-solid cursor-pointer"
+        id="profileImage"
+      />
+      <input type="file" id="imageUpload" accept="image/png" style="display: none;" />
+      <div class="profile-head flex flex-col justify-between w-3/4 h-full">
+        <div class="text-black text-sm flex">
+          <div class="tsl" data-tsl="ID">id</div>: <span id="userId"></span>
+        </div>
+        <h2
+          class="profile-name text-black text-3xl mb-4 flex items-center gap-2.5"
+        >
+          <span id="userName"></span>
+          <button class="edit-name tsl" data-tsl="edit" id="edit-name">
+            Edit
+          </button>
+          
+        </h2>
+
+        <div class="info dark-sky-box">
+          <h3 class="info-head flex justify-between text-sky-500">
+            <div class="tsl" data-tsl="info">Info</div>
+            <button class="edit-name tsl" data-tsl="edit" id="edit-info">
+              Edit
+            </button>
+          </h3>
+          <div
+            id="info"
+            class="info-box h-full mt-2.5 wrap-break-word whitespace-normal"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <section class="dashboard-section">
+      <div id="dashboard-content"></div>
+    </section>
+  </section>
+  <section
+    class="history-section flex flex-col max-w-[600px] min-w-[500px] w-full h-full mt-7 mb-10 gap-5 p-4"
+  >
+    <div class="h-[480px] max-h-1/2 flex flex-col">
+      <h2 class="m-2 text-black text-bold tsl" data-tsl="ponghistory">
+        🏓 Pong42 History
+      </h2>
+      <div id="history-pong-container" class="overflow-y-auto flex-1"></div>
+    </div>
+    <div class="h-[480px] max-h-1/2 flex flex-col">
+      <h2 class="m-2 text-black text-bold tsl" data-tsl="coderushhistory">
+        ⌨️ CodeRush History
+      </h2>
+      <div id="history-coderush-container" class="overflow-y-auto flex-1"></div>
+    </div>
+  </section>
+</div>
+
+<!-- Edit Name Modal -->
+<div class="modal" id="editNameModal">
+  <div class="modal-content">
+    <h2 class="modal-title tsl" data-tsl="editDisplayname">Edit display name</h2>
+    <div class="form-group">
+      <label for="newUsername" class="tsl" data-tsl="newDisplayname"
+        >New Username:</label
+      >
+      <input type="text" id="newUsername" />
+    </div>
+    <div class="modal-buttons">
+      <button class="btnr btn-cancel tsl" data-tsl="cancel" id="cancleEditName">
+        Cancel
+      </button>
+      <button class="btnr btn-save tsl" data-tsl="saveName" id="saveName">
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Info Modal -->
+<div class="modal" id="editInfoModal">
+  <div class="modal-content">
+    <h2 class="modal-title tsl" data-tsl="editBio">Edit Bio</h2>
+    <div class="form-group">
+      <label for="newUsername" class="tsl" data-tsl="newInfo">New Info:</label>
+      <input type="text" id="newInfo" />
+    </div>
+    <div class="modal-buttons">
+      <button class="btnr btn-cancel tsl" data-tsl="cancel" id="cancleEditInfo">
+        Cancel
+      </button>
+      <button class="btnr btn-save tsl" data-tsl="save" id="saveInfo">
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Image Modal -->
+<div class="modal" id="editImageModal">
+  <div class="modal-content">
+    <h2 class="modal-title tsl" data-tsl="changeProfileImage">
+      Change Profile Image
+    </h2>
+    <div class="form-group">
+      <label class="tsl" data-tsl="upload">upload an image: .png</label>
+      <input type="file" id="imageUpload" accept="image/png" />
+    </div>
+    <div class="modal-buttons">
+      <button
+        class="btnr btn-cancel tsl"
+        data-tsl="cancel"
+        id="cancelImagedModal"
+      >
+        Cancel
+      </button>
+      <button class="btnr btn-save tsl" data-tsl="save" id="saveImage">
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <----- friend reqfriend   -------->
+<div id="friendrequest" class="modal">
+  <div class="modal-content">
+    <h3 class="modal-title tsl" data-tsl="friendrequest">friendrequest</h3>
+    <div class="friendrequestlist"></div>
+    <div class="modal-buttons" style="margin-top: 20px">
+      <button id="closerequestbtn" class="btnr btn-cancel tsl" data-tsl="close">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="game-gate flex flex-col justify-center items-center absolute bottom-1/20 right-1/10 [transition:transform_0.3s_linear] cursor-pointer w-[5vw] animate-floatTown">
+  <image id="game-gate" class="w-[10vw] min-w-[100px]" src="/image/mapbtn.png"></image>
+</div>

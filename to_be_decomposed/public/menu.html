@@ -1,0 +1,106 @@
+<style>
+  body {
+    background-image: url("/image/coderush-bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+  .MenuGame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: auto;
+    width: 100%;
+    /* background-color: #000; */
+    /* background-image: url("image/growth.png"); */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .MenuGame img {
+    width: 10vw;
+    margin: 50px;
+    min-width: 200px;
+    height: auto;
+    cursor: pointer;
+    transform: translateY(150px);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .back {
+    position: absolute;
+    width: 200px;
+    top: 10%;
+    left: 5%;
+  }
+
+  .back img {
+    width: 10vw;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .MenuGame img:hover {
+    transform: translateY(150px) scale(1.1);
+  }
+
+  .back img:hover {
+    transform: scale(1.1);
+  }
+  
+  .container-howtoplay {
+    width: 600px;
+  }
+  .container-howtoplay * {
+    font-family: "Roboto", sans-serif;
+  }
+  
+</style>
+
+<div class="back">
+  <img src="/image/mapbtn.png" alt="Clickable Image" id="BackBtn" />
+</div>
+<div class="absolute top-1/10 right-1/20">
+  <button type="button" class="btnr bg-sky-500 tsl" data-tsl="howToPlay"  id="btncrHowToPlay" >How to Play</button> 
+</div>
+<div id="MenuGame" class="MenuGame">
+  <div>
+    <img src="/image/single.png" alt="Clickable Image" id="singlePlayBtn" />
+  </div>
+  <div>
+    <img src="/image/multi.png" alt="Clickable Image" id="matchingBtn" />
+  </div>
+</div>
+
+<div id="modalcrHowToPlay" class="modal" style="background-color: rgba(0, 0, 0, 0.8); ">
+  <div class="modal-content container-howtoplay p-8 space-y-8">
+    <div class="scrollable text-white">
+      <h3 class="howtoplay tsl text-sky-500 text-xl font-bold mb-4" data-tsl="coderushHTP">How to Play Coderush</h3>
+      <p class="mb-4 tsl" data-tsl="coderushHTP_desc">
+        Coderush is a fast-paced typing game where players compete to type and submit words as quickly as possible. There are two modes: Single Player and Multiplayer.
+      </p>
+      <h4 class="howtoplay tsl text-sky-500 text-lg font-semibold mb-2" data-tsl="coderushHTPSingle">Single Player Mode:</h4>
+      <ul class="list-disc pl-5 mb-4">
+        <li class="howtoplay tsl" data-tsl="coderushHTP_single1">Compete against the clock to type and submit as many words as possible.</li>
+        <li class="howtoplay tsl" data-tsl="coderushHTP_single2">Use the <strong>Enter</strong> or <strong>Spacebar</strong> to submit each word.</li>
+        <li class="howtoplay tsl" data-tsl="coderushHTP_single3">Earn points for accuracy and speed.</li>
+      </ul>
+      <h4 class="howtoplay tsl text-sky-500 text-lg font-semibold mb-2" data-tsl="coderushHTPMulti">Multiplayer Mode:</h4>
+      <ul class="list-disc pl-5 mb-4">
+        <li class="howtoplay tsl" data-tsl="coderushHTP_multi1">Challenge your friends or other players online.</li>
+        <li class="howtoplay tsl" data-tsl="coderushHTP_multi2">Type and submit words faster than your opponents to win.</li>
+        <li class="howtoplay tsl" data-tsl="coderushHTP_multi3">Use the <strong>Enter</strong> or <strong>Spacebar</strong> to submit each word.</li>
+        <li class="howtoplay tsl" data-tsl="coderushHTP_multi4">The player with the highest score at the end of the round wins.</li>
+      </ul>
+      <p class="tsl" data-tsl="coderushHTP_tips">
+        Remember: Speed and accuracy are key to mastering Coderush. Good luck!
+      </p>
+    </div>
+    <div class="final-section">
+      <button class="btnr btn-save tsl close-modal-btn" id="closeHowToPlay" data-tsl="close">Close</button>
+    </div>
+
+  </div>
+</div>
