@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta
+      http-equiv="Content-Type"
+      content="text/html; charset=utf-8 initial-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="google-signin-client_id"
+      content="68618451086-rr000c5396dbmotu76577ecr5jjcr16j.apps.googleusercontent.com"
+    />
+    <title class="tsl" data-tsl="sitename">ft_transcendence</title>
+    <link rel="stylesheet" href="/output.css" />
+    <link rel="stylesheet" href="/style/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Maitree&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script type="module" src="/libs/babylon.js"></script>
+    <script type="module" src="/libs/babylonjs.loaders.min.js"></script>
+    <script type="module" src="/libs/babylon.gui.min.js"></script>
+  </head>
+
+  <body>
+    <header
+      id="header"
+      class="abosolute top-0 left-0 flex justify-between items-center mx-[5%] py-4 px-0 border-b border-solid border-grey-500 p-4 bg-transparent"
+    >
+      <div
+        class="logo text-4xl text-teal-500 font-bold tsl cursor-pointer text-shadow-lg/20"
+        data-tsl="ft_transcendence"
+        id="logoBtn"
+      >
+        ft_transcendence
+      </div>
+      <div class="position-relative">
+        <div class="h-[65px]" style="position: relative">
+          <div id="boxSetting" class="w-[150px] flex justify-end">
+            <button
+              class="setting-btn bg-[url(/image/setting.png)] relative border-none bg-cover bg-no-repeat h-[50px] w-[50px] p-[30px] cursor-pointer font-bold transition-transform duration-300 ease-in-out hover:animate-spin"
+              id="settingBtn"
+            ></button>
+          </div>
+          <div
+            class="setting-box bg-sky-950 absolute top-[65px] right-0 w-[200px] flex-col justify-around p-2.5 rounded-sm gap-2.5 z-999"
+            id="settingbox"
+            style="display: none;"
+          >
+            <button
+              class="fa-btn btnr bg-indigo-500"
+              data-tsl="changelang"
+              id="changelang-btn"
+            >
+              <i class="fas fa-globe"></i>
+              <span class="tsl" data-tsl="changelang">Language</span>
+            </button>
+            <button
+              id="setup-2fa-btn"
+              class="fa-btn btnr bg-indigo-500 tsl"
+              data-tsl="setFA"
+            >
+              set 2FA
+            </button>
+            <button
+              class="fa-btn btnr bg-indigo-500 tsl"
+              data-tsl="blocklist"
+              id="blocklist-btn"
+            >
+              Block list
+            </button>
+            <button
+              class="delete-btn btnr bg-red-500 tsl"
+              data-tsl="deleteacc"
+              id="deleteBtn"
+            >
+              Delete Account
+            </button>
+            <button
+              class="logout-btn btnr bg-red-500 tsl"
+              data-tsl="logout"
+              id="logoutBtn"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="background-blur"></div>
+    <div id="content" class="w-full h-full"></div>
+
+    <div id="notification"></div>
+
+    <div id="chat-button" class="bg-sky-500">
+      💬
+      <span
+        id="chat-notification"
+        style="
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          color: white;
+          border-radius: 50%;
+          padding: 2px 6px;
+          font-size: 12px;
+          display: inline;
+          min-width: 18px;
+          text-align: center;
+        "
+      ></span>
+    </div>
+
+    <div id="chat-modal">
+      <div class="chat-modal-container">
+        <div id="" class="chat-header bg-sky-500 justify-between">
+          <div>
+            <span id="liveChatBtn" class="tsl" data-tsl="livechat"
+              >Live Chat</span
+            ><span id="friendChatBtn" class="tsl" data-tsl="friend"
+              >Friend</span
+            >
+          </div>
+          <button id="chat-close">×</button>
+        </div>
+        <div id="chat-messages"></div>
+        <form id="chat-form">
+          <input
+            id="chat-input"
+            type="text"
+            placeholder="Type a message..."
+            class="tsl"
+            data-tsl="typemsg"
+          />
+          <button
+            class="tsl btnr bg-sky-500 ml-2"
+            data-tsl="send"
+            type="submit"
+          >
+            Send
+          </button>
+        </form>
+        <div id="privatechatmodal">
+          <div style="position: relative">
+            <div id="privatechatcontent" style="height: 940px"></div>
+            <div id="closeprivate" class="closeprivate">x</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-user" id="userdModal">
+      <div class="modal-content-user">
+        <div class="modal-title-user" id="userModalTitle">
+          <h2>User Details</h2>
+          <div style="display: flex">
+            <div class="blockfriendbtns" id="blockfriendbtns"></div>
+            <div class="addfriendbtn" id="addfriendbtn"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <img
+            id="userModalImage"
+            src=""
+            style="
+              width: 100px;
+              height: 100px;
+              border-radius: 50%;
+              object-fit: cover;
+              margin-bottom: 15px;
+            "
+          />
+          <p><strong>Name:</strong> <span id="userModalName"></span></p>
+          <p><strong>Status:</strong> <span id="userModalStatus"></span></p>
+          <p><strong>Bio:</strong> <span id="userModalBio"></span></p>
+        </div>
+        <div class="modal-buttons">
+          <button class="btn-cancel btnr" id="btn-usercancel">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="notification-modal" class="hidden modal-overlay">
+      <div class="modal-box">
+        <div id="modal-message" class="modalnoti-message tsl"></div>
+        <div id="modal-buttons" class="modalnoti-buttons"></div>
+      </div>
+    </div>
+
+    <div id="FAmodal" style="display: none"></div>
+
+    <div class="modal-user" id="blockModal">
+      <div class="modal-content-user">
+        <h2 style="margin-bottom: 20px" class="tsl" data-tsl="blocklist">
+          Block list
+        </h2>
+        <div class="form-group" id="blocklist-list"></div>
+        <div class="modal-buttons">
+          <button
+            class="btn-cancel btnr tsl"
+            data-tsl="close"
+            id="btn-blocklistcancel"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="langModal" class="langModal bg-sky-950 text-white">
+      <ul>
+        <li data-lang="en" class="langbox bg-sky-800">English</li>
+        <li data-lang="th" class="langbox bg-sky-800">ไทย</li>
+        <li data-lang="jp" class="langbox bg-sky-800">日本語</li>
+        <!-- <li data-lang="sp" class="langbox bg-sky-800">Español</li> -->
+      </ul>
+    </div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script type="module" src="/src/manage.ts" defer></script>
+    <script type="module" src="/src/twofa.ts" defer></script>
+    <script type="module" src="/src/login.ts" defer></script>
+  </body>
+</html>
