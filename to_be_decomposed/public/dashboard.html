@@ -1,0 +1,107 @@
+<h2 class="mb-6 text-sky-500 shadow-xl tsl" data-tsl="dashboard">Dashboard</h2>
+<div id="stat-ponggame" class="dark-sky-box">
+  <h2 class="m-2 tsl" data-tsl="pongstat">🏓 PongGame Statistics</h2>
+  <div
+    class="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md mx-auto flex flex-col items-center gap-4"
+  >
+    <h2
+      class="text-lg font-semibold text-gray-800 tsl"
+      data-tsl="pongTotalWinrate"
+    >
+      Total Win Rate
+    </h2>
+    <div
+      id="total-win-rate-pie"
+      class="relative w-40 h-40 rounded-full"
+      style="background: conic-gradient(#d1d5db 0% 100%)"
+    >
+      <div
+        class="absolute inset-8 bg-white rounded-full flex items-center justify-center"
+      >
+        <span
+          id="total-win-rate-val"
+          class="text-xl font-bold text-teal-600"
+        ></span>
+      </div>
+    </div>
+    <div class="flex gap-6 mt-2">
+      <div class="flex items-center gap-1">
+        <div class="w-4 h-4 rounded bg-teal-500"></div>
+        <span class="text-sm text-gray-700 tsl" data-tsl="win">Win</span>
+      </div>
+      <div class="flex items-center gap-1">
+        <div class="w-4 h-4 rounded bg-red-500"></div>
+        <span class="text-sm text-gray-700 tsl" data-tsl="loss">Loss</span>
+      </div>
+      <div class="flex items-center gap-1">
+        <div class="w-4 h-4 rounded bg-gray-500"></div>
+        <span class="text-sm text-gray-700 tsl" data-tsl="draw">Draw</span>
+      </div>
+    </div>
+
+    <div class="flex space-x-4">
+      <div class="bg-gray-50 rounded-xl p-4 shadow flex flex-col items-center">
+        <div class="text-sm text-gray-600 tsl" data-tsl="totalMatch">
+          Total Match
+        </div>
+        <div id="total-match-val" class="text-2xl font-extrabold text-gray-800">
+          0
+        </div>
+      </div>
+      <div class="bg-teal-50 rounded-xl p-4 shadow flex flex-col items-center">
+        <div class="text-sm text-teal-600 tsl" data-tsl="totalWin">
+          Total Win
+        </div>
+        <div id="total-win-val" class="text-2xl font-extrabold text-teal-600">
+          -
+        </div>
+      </div>
+      <div class="bg-red-50 rounded-xl p-4 shadow flex flex-col items-center">
+        <div class="text-sm text-red-600 tsl" data-tsl="totalLoss">
+          Total Loss
+        </div>
+        <div id="total-loss-val" class="text-2xl font-extrabold text-red-600">
+          -
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4 shadow flex flex-col items-center">
+        <div class="text-sm text-gray-600 tsl" data-tsl="totalDraw">
+          Total Draw
+        </div>
+        <div id="total-draw-val" class="text-2xl font-extrabold text-gray-600">
+          -
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="stat-coderush" class="dark-sky-box mt-5">
+  <h2 class="m-2 tsl" data-tsl="coderushstat">⌨️ CodeRush Statistics</h2>
+  <div
+    class="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md mx-auto flex flex-col items-center gap-4 opacity-100"
+  >
+    <div class="flex space-x-4">
+      <div class="bg-gray-50 rounded-xl p-4 shadow flex flex-col items-center">
+        <div class="text-sm text-gray-500 tsl" data-tsl="totalGames">
+          Total Games
+        </div>
+        <div id="cr-total-game" class="text-2xl font-extrabold text-gray-800">
+          0
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4 shadow flex flex-col items-center">
+        <div class="text-sm text-gray-500 tsl" data-tsl="highscore">
+          High Score
+        </div>
+        <div id="cr-high" class="text-2xl font-extrabold text-gray-800">-</div>
+        <div class="text-sm text-gray-500 tsl" data-tsl="wpm">wpm</div>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-4 shadow flex flex-col items-center">
+        <div class="text-sm text-gray-500 tsl" data-tsl="average">Average</div>
+        <div id="cr-avg" class="text-2xl font-extrabold text-gray-800">-</div>
+        <div class="text-sm text-gray-500 tsl" data-tsl="wpm">wpm</div>
+      </div>
+    </div>
+  </div>
+</div>

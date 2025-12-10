@@ -1,0 +1,282 @@
+<style>
+  .friend-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+  }
+
+  .friend-head h2 {
+    color: #00bcd4;
+  }
+
+  #reqfriend {
+    width: 40px;
+    height: 40px;
+    background-image: url("/image/reqfriend.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  #search-friend-btn {
+    width: 40px;
+    height: 40px;
+    background-image: url("/image/searchuser.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  #reqfriend:hover {
+    transform: scale(1.1);
+  }
+
+  #search-friend-btn:hover {
+    transform: scale(1.2);
+  }
+
+  #friendModalTitle {
+    position: relative;
+  }
+
+  .blockfriendbtn {
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    background: url("/image/blockuser.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  #cancelfriendModal {
+    position: absolute;
+    right: -35px;
+    top: -35px;
+    transition: transform 0.2s;
+    font-size: 24px;
+  }
+  #cancelfriendModal:hover {
+    transform: scale(1.2);
+  }
+
+  .blockfriendbtn :hover {
+    transform: scale(1.2);
+  }
+
+  .friendInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .friendInfoText {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(70, 70, 121, 0.8);
+  }
+  .friendInfoText p {
+    margin: 10px;
+  }
+
+  .message-input-friend {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+  }
+
+  .message-input-friend input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .send-button-friend {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  .send-button-friend svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+  }
+
+  .friends {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding: 10px;
+    gap: 2px;
+    border-radius: 10px;
+    min-width: 250px;
+    min-height: 600px;
+    max-height: 600px;
+    overflow-y: auto;
+  }
+
+  /* .friend-card {
+    max-height: 80px;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  } */
+
+  .friend-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .friend-info {
+    flex: 1;
+  }
+
+  .friend-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .friend-status {
+    font-size: 12px;
+  }
+  .deny-btn {
+    background-color:#fb2c36;
+  }
+  .accept-btn {
+    background-color: #00bba7;
+  }
+</style>
+<div class="friend-head">
+  <div style="display: flex; gap: 20px">
+    <div id="reqfriend" style="position: relative">
+      <span
+        id="req-notification"
+        style="
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background: red;
+          color: white;
+          border-radius: 50%;
+          padding: 2px 6px;
+          font-size: 12px;
+          display: inline;
+          min-width: 18px;
+          text-align: center;
+        "
+      ></span>
+    </div>
+    <div id="search-friend-btn"></div>
+  </div>
+</div>
+
+<div id="friend-request"></div>
+<div
+  class="friends dark-sky-box flex flex-col justify-start p-2.5 gap-0.5 opacity-80 min-w-[250px] min-h-[600px] max-h-[600px] overflow-y-auto"
+></div>
+
+<div class="modal" id="searchfriend">
+  <div class="modal-content">
+    <h3 class="modal-title tsl" data-tsl="searchFriend">Search Friends</h3>
+    <div class="form-group">
+      <input
+        id="searchInput"
+        class="tsl"
+        data-tsl="inputId"
+        placeholder="input user ID"
+      />
+    </div>
+    <div class="modal-buttons">
+      <button
+        class="btnr btn-cancel tsl"
+        data-tsl="close"
+        id="close-search-btn"
+      >
+        Close
+      </button>
+      <button class="btnr btn-save tsl" data-tsl="search" id="performSearch">
+        Search
+      </button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<div class="modal" id="friendModal">
+  <div class="modal-content">
+    <div class="modal-title" id="friendModalTitle">
+      <div class="blockfriendbtn" id="blockfriendbtn"></div>
+      <div class="modal-buttons">
+        <div class="btnr" id="cancelfriendModal">x</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="friendInfo">
+        <img
+          id="friendModalImage"
+          src=""
+          style="
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+          "
+        />
+      </div>
+
+      <div class="friendInfoText">
+        <p>
+          <strong class="tsl" data-tsl="name">Name: </strong>
+          <span id="friendModalName"></span>
+        </p>
+        <p>
+          <strong class="tsl" data-tsl="status">Status: </strong>
+          <span id="friendModalStatus"></span>
+        </p>
+        <p>
+          <strong class="tsl" data-tsl="bio">Bio: </strong>
+          <span id="friendModalBio"></span>
+        </p>
+      </div>
+      <div class="message-input-friend">
+        <input
+          class="tsl"
+          data-tsl="inputTypeMsg"
+          type="text"
+          placeholder="Type a message..."
+          id="message-input-friend"
+        />
+        <div class="send-button-friend bg-sky-500" id="send-button-friend">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M476.59 227.05l-.16-.07L49.35 49.84A23.56 23.56 0 0027.14 52 24.65 24.65 0 0016 72.59v113.29a24 24 0 0019.52 23.57l232.93 43.07a4 4 0 010 7.86L35.53 303.45A24 24 0 0016 327v113.31A23.57 23.57 0 0026.59 460a23.94 23.94 0 0013.22 4 24.55 24.55 0 009.52-1.93L476.4 285.94l.19-.09a32 32 0 000-58.8z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

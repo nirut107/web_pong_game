@@ -1,0 +1,258 @@
+<style>
+  body {
+    background-image: url("/image/map.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .game-list {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+  }
+  .box-button {
+    display: flex;
+    height: 300px;
+    gap: 50px;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .box-button img {
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  .box-button img:hover {
+    transform: scale(1.1);
+  }
+  .home {
+    position: absolute;
+    /* animation: floatTown 4s ease-in-out infinite; */
+    width: 14vw;
+    top: 2%;
+    right: 16%;
+  }
+  .home img {
+    width: 14vw;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  #HomeBtn:hover {
+    content: url("/image/home.png");
+    transform: scale(1);
+  }
+  .home img:hover {
+    transform: scale(1.05);
+  }
+
+  .tournament {
+    position: absolute;
+    /* animation: floatTown 4s ease-in-out infinite; */
+    width: 15vw;
+    top: 20%;
+    left: 5%;
+  }
+  .tournamentimg {
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    margin-top: 40px;
+  }
+  .tournamentimg:hover {
+    transform: scale(1.1);
+  }
+  .scroll {
+    position: absolute;
+    top: -50px;
+    max-width: 120%;
+  }
+  .otp {
+    position: absolute;
+    left: 35.5%;
+    top: 40%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    opacity: 0;
+  }
+  .coderush {
+    position: absolute;
+    /* animation: floatTown 4s ease-in-out infinite; */
+    transition: transform 0.3s ease-in-out;
+    width: 6vw;
+    bottom: 61%;
+    left: 56%;
+  }
+  .coderush:hover {
+    transform: scale(1.1);
+  }
+  .ponggame {
+    position: absolute;
+    /* animation: floatTown 4s ease-in-out infinite; */
+    transition: transform 0.3s ease-in-out;
+    width: 6vw;
+    bottom: 24%;
+    left: 32%;
+  }
+  .ponggame:hover {
+    transform: scale(1.1);
+  }
+  /* @keyframes floatTown {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  } */
+  #cloud {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  #cloud img {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  #cloud {
+    opacity: 1;
+    transition: opacity 2s ease;
+  }
+  #cloud.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #divTournamentInfo {
+    z-index: 5;
+    position: absolute;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  @keyframes jumpFade {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100px);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.otp-jump {
+  animation: jumpFade 1.5s ease-in-out forwards;
+}
+
+</style>
+<div id="cloud">
+  <img src="/image/cloud.jpg" />
+</div>
+<div class="home animate-floatTown ">
+  <img src="/image/oldhome.png" alt="Clickable Image" id="HomeBtn" />
+</div>
+<div class="game-list">
+  <div class="box-button">
+    <img
+      src="/image/ponggame.png"
+      alt="Clickable Image"
+      class="ponggame"
+      id="pongGameBtn"
+    />
+    <img
+      src="/image/coderush.png"
+      alt="Clickable Image"
+      class="coderush"
+      id="typeGameBtn"
+    />
+  </div>
+  <div class="tournament" id="tournament">
+    <div id="divTournamentInfo">
+      <div
+        id="divActiveTournament"
+        class="tsl"
+        data-tsl="headerActiveTournament"
+        style="z-index: 2;"
+      >
+        Active Tournament
+      </div>
+      <div id="started" class="tsl" data-tsl="started" style="display: none; z-index: 2;">
+        Tournament already start
+      </div>
+      <div id="notonstart" style="z-index: 2;">
+        <div style="display: flex; gap: 5px">
+          <div class="tsl" data-tsl="nexttournament">Next started at</div>
+          <span id="timeStart">-</span>
+        </div>
+        <div style="display: flex; gap: 5px">
+          <span class="tsl" data-tsl="pleasejoin">Please join before</span
+          ><span id="timejoin">-</span>
+        </div>
+      </div>
+      <img
+        src="/image/tour.png"
+        class="tournamentimg"
+        alt="Clickable Image"
+        id="tournamentBtn"
+      />
+      <image class="scroll" src="/image/scroll.png" id="scroll" />
+      <div style="display: flex; gap: 5px" id="divParts">
+        <div id="currently">0 / 8</div>
+        <span class="tsl" data-tsl="participants">participants</span>
+      </div>
+      <div>
+        <button
+          class="btnr bg-teal-500 shadow-lg tsl"
+          id="btnJoinTournament"
+          data-tsl="joinnow"
+        >
+          Join Now
+        </button>
+      </div>
+      <!-- <div style="color: #bb0000">
+        the content above should be updated / hide / show according to the
+        websocket's payload <br />
+        please see the console and find " <== current-tournament " <br />
+        <i>remove me when done</i>
+        <button
+          id="btnCreateTournament"
+          style="border: solid 1px#000000; padding: 3px; background: #ff3333"
+        >
+          Create new Tournament
+        </button>
+      </div> -->
+      <div></div>
+    </div>
+  </div>
+  <img id="otp" class="otp" />
+
+  <!-- </div> -->
+</div>

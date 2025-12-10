@@ -1,0 +1,102 @@
+<style>
+  .chatNotification {
+    position: fixed;
+    left: 200px;
+    bottom: 200px;
+    background: rgba(59, 130, 246, 0.95);
+    color: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    max-width: 350px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+    font-family: "Inter", sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateY(100px);
+    opacity: 1;
+    animation: appearAndDisappear 5s ease-in-out forwards;
+    z-index: 9999;
+  }
+
+  .chatNotification__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .chatNotification__content {
+    flex: 1;
+  }
+
+  .chatNotification__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .chatNotification__name {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .chatNotification__time {
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+
+  .chatNotification__message {
+    width: 250px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @keyframes appearAndDisappear {
+    0% {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    15% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    85% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+  }
+
+  /* For dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .chatNotification {
+      background: rgba(30, 58, 138, 0.95);
+    }
+  }
+</style>
+
+<div class="chatNotification" id="chatNotification">
+  <div class="chatNotification__avatar" id="chatNotification__avatar">
+    <img src="user-avatar.jpg" alt="" />
+  </div>
+  <div class="chatNotification__content" id="chatNotification__content">
+    <div class="chatNotification__header">
+      <span class="chatNotification__name" id="chatNotification__name"></span>
+      <span class="chatNotification__time" id="chatNotification__time"></span>
+    </div>
+    <div class="chatNotification__message" id="chatNotification__message"></div>
+  </div>
+</div>

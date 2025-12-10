@@ -1,0 +1,359 @@
+<style>
+  #canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .textInput {
+    position: absolute;
+    font-size: 100px;
+  }
+  .shake {
+    animation: shake 0.5s infinite;
+  }
+
+  .gametype {
+    width: 100vw;
+    height: auto;
+  }
+  #loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(150, 17, 33);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 2s ease;
+  }
+
+  #loader.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #loader img {
+    width: 500px;
+    height: auto;
+  }
+  #scoreBoard {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(30, 30, 30, 0.85);
+    border: 2px solid #00ffc8;
+    padding: 16px;
+    border-radius: 12px;
+    color: #fff;
+    font-family: "Courier New", monospace;
+    font-size: 1.2rem;
+    z-index: 1000;
+    box-shadow: 0 0 12px #00ffc8;
+    width: 220px;
+  }
+
+  #scoreBoard h3 {
+    margin: 0 0 10px;
+    font-size: 1.3rem;
+    color: #00ffc8;
+    text-align: center;
+  }
+
+  #scoreList div {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  }
+
+  #scoreList div:last-child {
+    border-bottom: none;
+  }
+  #giveup {
+    border-radius: 10px;
+    position: absolute;
+    padding: 10px;
+    background-color: rgb(231, 102, 102);
+    color: black;
+    left: 5%;
+    top: 5%;
+    font-size: 32px;
+    color: bisque;
+    cursor: pointer;
+    transition: transform 0.2s linear;
+  }
+  #giveup:hover {
+    transform: scale(1.1);
+    background-color: red;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    perspective: 1000px;
+  }
+
+  .modal-content {
+    background: linear-gradient(135deg, #2b1055 0%, #7597de 100%);
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+      0 0 25px rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 500px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    animation: modalEnter 0.5s ease-out forwards;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+  }
+
+  @keyframes glint {
+    0% {
+      text-shadow: 0 0 5px rgba(255, 223, 0, 0.3);
+    }
+    50% {
+      text-shadow: 0 0 20px rgba(255, 223, 0, 0.7),
+        0 0 30px rgba(255, 223, 0, 0.5);
+    }
+    100% {
+      text-shadow: 0 0 5px rgba(255, 223, 0, 0.3);
+    }
+  }
+
+  @keyframes modalEnter {
+    0% {
+      transform: scale(0.8) rotateX(-10deg);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1) rotateX(0);
+      opacity: 1;
+    }
+  }
+
+  .modal-title {
+    background: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    position: relative;
+    text-transform: uppercase;
+  }
+
+  .modal-title::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.8),
+      transparent
+    );
+  }
+
+  .modal-title::first-letter {
+    animation: glint 2s infinite;
+    font-size: 32px;
+  }
+  .modal-body {
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .player-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .player-result:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .player-name {
+    font-weight: bold;
+    font-size: 18px;
+    flex-grow: 1;
+  }
+
+  .player-score {
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffdf00;
+    text-shadow: 0 0 5px rgba(255, 223, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px 15px;
+    border-radius: 20px;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .result-entry {
+    display: flex;
+    justify-content: space-between;
+    background-color: #292943;
+    margin: 0.5rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .modal-buttons {
+    padding: 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  /* Button styling */
+  .btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transform: translateX(-100%);
+  }
+
+  .btn:hover::after {
+    animation: button-shine 1.5s;
+  }
+
+  @keyframes button-shine {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .btn-cancel {
+    background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+    color: white;
+  }
+
+  .btn:active {
+    transform: translateY(2px);
+  }
+  .timeCountdown {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: sans-serif;
+    pointer-events: none;
+    background-color: #00ffc8;
+    padding: 0px 10px;
+    border-radius: 10px;
+  }
+  
+  .siren-mode {
+    animation: redSiren 1s infinite;
+  }
+  @keyframes redSiren {
+    0% {
+      background-color: rgb(80, 0, 0);
+    }
+    50% {
+      background-color: red;
+    }
+    100% {
+      background-color: rgb(80, 0, 0);
+    }
+  }
+  .fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+  }
+
+  .fade-in.show {
+    z-index: 10;
+    opacity: 1;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
+<div id="loader">
+  <img src="/image/loading.gif" alt="Loading..." />
+</div>
+<div id="timeCountdown" class="timeCountdown hidden fade-in"></div>
+
+<canvas id="canvas" style="display: none"></canvas>
+<div id="textDiv" class="textInput"></div>
+<div class="fade-in hidden" id="Score"></div>
+
+<div id="scoreBoard">
+  <h3 class="tsl" data-tsl="scoreBoard">🏆 Scoreboard</h3>
+  <div id="scoreList"></div>
+</div>
+<button class="btn fade-in hidden tsl" data-tsl="giveup" id="giveup">
+  Give up
+</button>
+
+<div class="modal" id="GameResultModal">
+  <div class="modal-content">
+    <h2 class="modal-title tsl" data-tsl="matchResult">🏆 Match Result</h2>
+    <div class="modal-body" id="resultContainer"></div>
+    <div class="modal-buttons">
+      <button class="btn btn-cancel tsl" data-tsl="return" id="returnbtn">
+        Return
+      </button>
+    </div>
+  </div>
+</div>
