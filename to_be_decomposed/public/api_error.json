@@ -1,0 +1,5 @@
+{
+  "error": "API service temporarily unavailable",
+  "status": 503,
+  "message": "The API service is currently not available. Please try again later."
+} 
