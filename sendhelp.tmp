@@ -1,0 +1,11 @@
+Throwing the UI aside, 
+curl -X POST -H "Content-Type: application/json" -d '{"username":"testuser", "password":"password123"}' http://localhost:8000/api/v1/auth/login -v
+yields token, of which you can log in with something like
+
+TOKEN="tok" && curl -H "Authorization: Bearer $TOKEN" http://localhost:8000/api/v1/auth/me -v
+
+curl -X POST -H "Content-Type: application/json" -d '{"username":"test2fa", "password":"password123"}' http://localhost:8000/api/v1/auth/login
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer jwdtokenstuffhere" -d '{}' http://localhost:8000/api/v1/auth/2fa/setup
+
+
+docker compose down && docker compose build --no-cache && docker compose up -d

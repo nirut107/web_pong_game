@@ -1,0 +1,17 @@
+{
+  "name": "analytics-service",
+  "version": "1.0.0",
+  "description": "Analytics Service for Transcendence",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "fastify": "^4.26.1",
+    "fastify-plugin": "^4.5.1",
+    "node-fetch": "^3.3.2",
+    "prom-client": "^14.2.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "api-gateway",
+  "version": "1.0.0",
+  "description": "API Gateway for Transcendence Microservices",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "fastify": "^4.29.0",
+    "@fastify/http-proxy": "^9.3.0",
+    "@fastify/cors": "^9.0.0",
+    "fastify-plugin": "^4.5.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "swagger-ui-express": "^5.0.0",
+    "yamljs": "^0.3.0",
+    "prom-client": "^14.2.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.3",
+    "supertest": "^6.3.4"
+  }
+}

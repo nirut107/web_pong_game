@@ -1,0 +1,88 @@
+groups:
+  - name: uptime_recording_rules
+    interval: 30s
+    rules:
+      # Calculate uptime percentage for each service over different time windows
+      - record: service_uptime_5m
+        expr: avg_over_time(up[5m]) * 100
+        labels:
+          metric_type: "uptime_percentage"
+          window: "5m"
+
+      - record: service_uptime_1h
+        expr: avg_over_time(up[1h]) * 100
+        labels:
+          metric_type: "uptime_percentage"
+          window: "1h"
+
+      - record: service_uptime_24h
+        expr: avg_over_time(up[24h]) * 100
+        labels:
+          metric_type: "uptime_percentage"
+          window: "24h"
+
+      - record: service_uptime_7d
+        expr: avg_over_time(up[7d]) * 100
+        labels:
+          metric_type: "uptime_percentage"
+          window: "7d"
+
+      - record: service_uptime_30d
+        expr: avg_over_time(up[30d]) * 100
+        labels:
+          metric_type: "uptime_percentage"
+          window: "30d"
+
+      # Calculate total downtime minutes
+      - record: service_downtime_minutes_24h
+        expr: (1 - avg_over_time(up[24h])) * 24 * 60
+        labels:
+          metric_type: "downtime_minutes"
+          window: "24h"
+
+      - record: service_downtime_minutes_7d
+        expr: (1 - avg_over_time(up[7d])) * 7 * 24 * 60
+        labels:
+          metric_type: "downtime_minutes"
+          window: "7d"
+
+      - record: service_downtime_minutes_30d
+        expr: (1 - avg_over_time(up[30d])) * 30 * 24 * 60
+        labels:
+          metric_type: "downtime_minutes"
+          window: "30d"
+
+  - name: uptime_alerting_rules
+    rules:
+      # Alert if service is down for more than 2 minutes
+      - alert: ServiceDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+          audit_category: "service_availability"
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "Service {{ $labels.job }} on {{ $labels.instance }} has been down for more than 2 minutes"
+
+      # Alert if service uptime is below 95% over 24h
+      - alert: LowServiceUptime24h
+        expr: service_uptime_24h < 95
+        for: 5m
+        labels:
+          severity: warning
+          audit_category: "service_availability"
+        annotations:
+          summary: "Low uptime for {{ $labels.job }}"
+          description: "Service {{ $labels.job }} has {{ $value | printf \"%.2f\" }}% uptime over 24h (below 95% threshold)"
+
+      # Alert if service uptime is below 99% over 7d
+      - alert: LowServiceUptime7d
+        expr: service_uptime_7d < 99
+        for: 5m
+        labels:
+          severity: warning
+          audit_category: "service_availability"
+        annotations:
+          summary: "Low weekly uptime for {{ $labels.job }}"
+          description: "Service {{ $labels.job }} has {{ $value | printf \"%.2f\" }}% uptime over 7 days (below 99% threshold)"
